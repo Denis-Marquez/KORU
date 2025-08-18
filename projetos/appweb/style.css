@@ -1,0 +1,582 @@
+/* Import da fonte Geologica - Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Montserrat:wght@100..900&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Geologica, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#EEEEFF, #8eaac2);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+  ESTILOS DO CABEÇALHO
+  --------------------
+  Centraliza o título e adiciona um espaçamento inferior.
+*/
+.cabecalho-body {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.cabecalho-body h1 {
+    font-size: 1.8em;
+    color: #333;
+    margin: 0;
+}
+
+/*
+  ESTILOS DO FORMULÁRIO
+  ---------------------
+  Define o layout do formulário e dos controles.
+*/
+.api-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/*
+  ESTILOS DOS CONTROLES DO FORMULÁRIO (LABEL E SELECT)
+  ----------------------------------------------------
+*/
+.api-control label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.api-control select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+/*
+  ESTILOS DO INPUT E DO BOTÃO
+  ---------------------------
+  Utiliza Flexbox para alinhar o input e o botão lado a lado.
+  Garante que ambos tenham a mesma altura e fiquem alinhados.
+*/
+.api-txt-btn {
+    display: flex;
+    align-items: center;
+    /* Alinha verticalmente os itens */
+    gap: 10px;
+    /* Espaçamento entre o input e o botão */
+}
+
+.api-input {
+    flex-grow: 1;
+    /* Faz o input ocupar o espaço disponível */
+    padding: 12px 15px;
+    /* Aumenta o padding para um visual mais limpo */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    height: 40px;
+    /* Define uma altura fixa para ambos os elementos */
+    box-sizing: border-box;
+}
+
+.api-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#send-api {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    /* Define a largura para ser igual à altura, tornando-o quadrado */
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    /* Transforma o botão em um círculo */
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1.5em;
+    /* Aumenta o tamanho do ícone */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#send-api:hover {
+    background-color: #218838;
+}
+
+/*
+  FONTES DE ÍCONES (para garantir que o ícone apareça)
+  ----------------------------------------------------
+  Ajusta o estilo para renderizar o ícone de 'check_circle' corretamente.
+*/
+.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded', sans-serif;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
+
+#chat-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #707ce7;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+body.show-chat #chat-toggle {
+    transform: rotate(90deg);
+}
+
+#chat-toggle span {
+    color: #fff;
+    position: absolute;
+}
+
+body.show-chat #chat-toggle span:first-child,
+#chat-toggle span:last-child {
+    opacity: 0;
+}
+
+body.show-chat #chat-toggle span:last-child {
+    opacity: 1;
+}
+
+.chatbot-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    width: 420px;
+    background: #FFF;
+    overflow: hidden;
+    border-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    height: auto;
+    z-index: 100;
+}
+
+body.show-chat .chatbot-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    background: #707ce7;
+    padding: 15px 22px;
+    justify-content: space-between;
+}
+
+.chat-header .header-info {
+    display: flex;
+    color: #fff;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-header .chat-logo {
+    height: 35px;
+    width: 35px;
+    padding: 4px;
+    background: #FFF;
+    fill: #707ce7;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.chat-header #close-chat {
+    border: none;
+    color: #FFF;
+    height: 40px;
+    width: 40px;
+    font-size: 1.9rem;
+    margin-right: -10px;
+    padding-top: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #707ce7;
+    transition: 0.2s ease;
+}
+
+.chat-header #close-chat:hover {
+    background: #3849dd;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px 22px;
+    overflow-y: auto;
+    display: flex;
+    gap: 20px;
+    /* height: 460px;     */
+    /* margin-bottom: 82px; */
+    min-height: 200px;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: #ccccf5 transparent;
+}
+
+.chat-body .message {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.chat-body .bot-message .bot-avatar {
+    height: 35px;
+    width: 35px;
+    background: #707ce7;
+    fill: #fff;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    align-self: flex-end;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.chat-body .user-message {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chat-body .message .message-text {
+    padding: 12px 16px;
+    max-width: 75%;
+    font-size: 0.95rem;
+}
+
+.chat-body .bot-message .message-text {
+    background: #F2F2FF;
+    border-radius: 13px 13px 13px 3px;
+}
+
+.chat-body .bot-message.thinking .message-text {
+    padding: 2px 16px;
+}
+
+.chat-body .user-message .message-text {
+    color: #FFF;
+    background: #707ce7;
+    border-radius: 13px 13px 3px 13px;
+}
+
+.chat-body .bot-message .thinking-indicator {
+    display: flex;
+    gap: 4px;
+    padding-block: 15px;
+}
+
+.chat-body .bot-message .thinking-indicator .dot {
+    height: 7px;
+    width: 7px;
+    opacity: 0.7;
+    border-radius: 50%;
+    background: #707ce7;
+    animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%,
+    44% {
+        transform: translateY(0);
+    }
+
+    28% {
+        opacity: 0.4;
+        transform: translateY(-4px);
+    }
+
+    44% {
+        opacity: 0.2;
+    }
+}
+
+.chat-footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background: #FFF;
+    padding: 15px 22px 20px;
+}
+
+.chat-footer .chat-form {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background: #FFF;
+    border-radius: 32px;
+    outline: 1px solid #CCCCE5;
+}
+
+.chat-footer .chat-form:focus-within {
+    outline: 2px solid #3849dd;
+}
+
+.chat-form .message-input {
+    border: none;
+    outline: none;
+    height: 47px;
+    width: 100%;
+    font-size: 0.95rem;
+    resize: none;
+    padding: 14px 0 13px 18px;
+    border-radius: inherit;
+    max-height: 100px;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.chat-form .message-input:hover {
+    scrollbar-color: #ccccf5 transparent;
+}
+
+.chat-form .chat-control {
+    display: flex;
+    height: 47px;
+    gap: 3px;
+    align-items: center;
+    align-self: flex-end;
+    padding-right: 6px;
+}
+
+.chat-form .chat-control button {
+    height: 35px;
+    width: 35px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.15rem;
+    color: #707ce7;
+    background: none;
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.chat-form .chat-control #send-message {
+    color: #fff;
+    display: none;
+    background: #707ce7;
+}
+
+.chat-form .message-input:valid~.chat-control #send-message {
+    display: block;
+}
+
+.chat-form .chat-control #send-message:hover {
+    background: #3849dd;
+}
+
+.chat-form .chat-control button:hover {
+    background: #f1f1ff;
+}
+
+em-emoji-picker {
+    position: absolute;
+    left: 50%;
+    top: -337px;
+    width: 100%;
+    max-width: 350px;
+    max-height: 330px;
+    visibility: hidden;
+    transform: translateX(-50%);
+}
+
+body.show-emoji em-emoji-picker {
+    visibility: visible;
+}
+
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.disabled #send-api {
+    cursor: not-allowed;
+}
+
+.hide {
+    display: none;
+}
+
+/* Adicione estas media queries ao final do seu CSS */
+@media (max-width: 520px) {
+    .chatbot-popup {
+        width: calc(100% - 40px);
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.2);
+        max-height: 70vh;
+    }
+
+    body.show-chat .chatbot-popup {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .chat-body {
+        height: calc(70vh - 120px);
+        margin-bottom: 72px;
+        padding: 15px;
+    }
+
+    .chat-footer {
+        padding: 10px 15px 15px;
+    }
+
+    .message-input {
+        font-size: 0.9rem;
+    }
+
+    #chat-toggle {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media (min-width: 521px) and (max-width: 768px) {
+    .chatbot-popup {
+        width: 380px;
+        max-height: 75vh;
+    }
+
+    .chat-body {
+        height: calc(75vh - 120px);
+        margin-bottom: 82px;
+    }
+
+    .chat-body .message .message-text {
+        max-width: 85%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .chatbot-popup {
+        width: 400px;
+        max-height: 80vh;
+    }
+
+    .chat-body {
+        height: calc(80vh - 120px);
+    }
+
+    .chat-body .message .message-text {
+        max-width: 80%;
+    }
+}
+
+/* MELHORIAS PARA O SCROLL */
+.chat-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #707ce7;
+    border-radius: 4px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+    background: #f1f1ff;
+}
+
+@media (min-width: 1025px) {
+    .chatbot-popup {
+        width: 420px;
+        max-height: 80vh;
+    }
+
+    .chat-body {
+        height: 460px;
+    }
+}
+
+/* Ajustes adicionais para o scroll e mensagens */
+.chat-body {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccccf5 transparent;
+}
+
+.chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #ccccf5;
+    border-radius: 3px;
+}
+
+.chat-form .message-input {
+    scrollbar-width: thin;
+    scrollbar-color: #ccccf5 transparent;
+}
+
+.chat-form .message-input::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-form .message-input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-form .message-input::-webkit-scrollbar-thumb {
+    background-color: #ccccf5;
+    border-radius: 3px;
+}
+
+.index-body.hide {
+    display: none;
+}
