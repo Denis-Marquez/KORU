@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes JavaScript DOM</title>
+    <style>
+        .destaque {
+            background-color: yellow;
+            padding: 5px;
+        }
+        .inativo {
+            opacity: 0.5;
+        }
+        .ativo {
+            font-weight: bold;
+            color: green;
+        }
+        #elementoARemover {
+            border: 1px solid red;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Testes de Manipulação DOM</h1>
+    
+    <!-- Elemento para getElementById -->
+    <div id="meuElemento">Este é o elemento com ID 'meuElemento'</div>
+    
+    <!-- Elementos para getElementsByTagName -->
+    <p>Primeiro parágrafo</p>
+    <p>Segundo parágrafo</p>
+    
+    <!-- Elemento para getAttribute -->
+    <a href="https://www.exemplo.com" id="meuLink">Link de exemplo</a>
+    
+    <!-- Elemento para classList -->
+    <div id="elementoClasses" class="inativo">Elemento para testes de classes</div>
+    
+    <!-- Elemento para removeChild -->
+    <div id="container">
+        <div id="elementoARemover">Este elemento será removido</div>
+    </div>
+    
+    <button onclick="executarTestes()">Executar Todos os Testes</button>
+    
+    <script>
+        function executarTestes() {
+            // 1. Teste document.getElementById(id)
+            const elemento = document.getElementById("meuElemento");
+            if (elemento) {
+                elemento.textContent = "Texto alterado via getElementById!";
+            }
+            
+            // 2. Teste document.getElementsByTagName(tagName)
+            const paragrafos = document.getElementsByTagName("p");
+            if (paragrafos.length > 0) {
+                paragrafos[0].textContent = "Primeiro parágrafo alterado!";
+            }
+            
+            // 3. Teste document.createElement(tagName)
+            const novaDiv = document.createElement("div");
+            novaDiv.textContent = "Nova div criada com createElement!";
+            document.body.appendChild(novaDiv);
+            
+            // 4. Teste element.getAttribute(attributeName)
+            const primeiroLink = document.querySelector("a");
+            if (primeiroLink) {
+                const href = primeiroLink.getAttribute("href");
+                console.log("Valor do atributo href:", href);
+                alert(`Valor do atributo href: ${href}`);
+            }
+            
+            // 5. Teste element.classList
+            const elementoClasses = document.getElementById("elementoClasses");
+            if (elementoClasses) {
+                elementoClasses.classList.add("destaque");
+                elementoClasses.classList.remove("inativo");
+                elementoClasses.classList.toggle("ativo");
+            }
+            
+            // 6. Teste parentElement.removeChild(childElement)
+            const elementoParaRemover = document.getElementById("elementoARemover");
+            if (elementoParaRemover && elementoParaRemover.parentElement) {
+                // Adiciona um atraso para você ver o elemento antes de remover
+                setTimeout(() => {
+                    elementoParaRemover.parentElement.removeChild(elementoParaRemover);
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
