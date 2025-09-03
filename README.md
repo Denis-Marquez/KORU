@@ -1,6 +1,7 @@
 # KORU
 
-exercicios koru - desenvolve boticario - Prof. Mateus Moraes 
+exercicios koru - desenvolve boticario - Prof. Mateus Morais <br>
+
 (feitos sozinho "deve de casa")
 
 - javascript
